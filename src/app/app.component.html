@@ -1,0 +1,169 @@
+<!--heading-->
+<div style="text-align: center; background-color: darkcyan; height: 50px">
+  <h1>Appointment application</h1>
+</div>
+
+<ng-container>
+  <div class="container-fluid" style="margin-top: 20px">
+    <button (click)="changeView(0);">All Appointment</button>
+    <button (click)="changeView(4);" style="margin-left: 5px">New Appointment</button>
+  </div>
+  <hr>
+</ng-container>
+
+<ng-container>
+  <ng-container>
+    <div *ngIf="view == 0; then findAll"></div>
+    <div *ngIf="view == 2; then update"></div>
+    <div *ngIf="view == 3; then delete"></div>
+    <div *ngIf="view == 4; then create"></div>
+  </ng-container>
+</ng-container>
+
+<ng-template #create>
+  <h1>New appointment</h1>
+  <form #appointmentForm="ngForm" (ngSubmit)="onSubmit(appointmentForm)" novalidate>
+    <div class="form-group">
+      <label>Employee ID</label>
+      <input #name="ngModel" type="text" required
+             name="employeeId" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.employeeId" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Employee ID is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Patient ID</label>
+      <input #name="ngModel" type="text" required
+             name="patientId" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.patientId" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Patient ID is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Appointment Type</label>
+      <input #name="ngModel" type="text" required
+             name="appointmentType" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.appointmentType" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Appointment Type is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Date</label>
+      <input #name="ngModel" type="date" required
+             name="appointmentDate" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.appointmentDate" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Date is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Time</label>
+      <input #name="ngModel" type="time" required
+             name="appointmentTime" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.appointmentTime" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Time is invalid
+      </small>
+    </div>
+    <button type="submit">Save</button>
+  </form>
+
+</ng-template>
+
+<ng-template #update>
+  <h1>Update appointment</h1>
+  <form #appointmentForm="ngForm" (ngSubmit)="onSubmit(appointmentForm)" novalidate>
+    <div class="form-group">
+      <label>Employee ID</label>
+      <input #name="ngModel" type="text" required
+             name="employeeId" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.employeeId" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Employee ID is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Patient ID</label>
+      <input #name="ngModel" type="text" required
+             name="patientId" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.patientId" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Patient ID is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Appointment Type</label>
+      <input #name="ngModel" type="text" required
+             name="appointmentType" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.appointmentType" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Appointment Type is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Date</label>
+      <input #name="ngModel" type="date" required
+             name="appointmentDate" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.appointmentDate" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Date is invalid
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Time</label>
+      <input #name="ngModel" type="time" required
+             name="appointmentTime" [class.is-invalid]="name.invalid && name.touched"
+             class="form-control" [(ngModel)]="appointmentModel.appointmentTime" style="width: 25%">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">
+        Time is invalid
+      </small>
+    </div>
+    <button type="submit">Save</button>
+  </form>
+</ng-template>
+
+<ng-template #delete>
+  <h1>delete</h1>
+</ng-template>
+
+<ng-template #findAll>
+  <ng-container>
+    <h1>All available appointments</h1>
+    <table class="table table-hover" style="width: 50%; background-color: darkgray">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">E_ID</th>
+          <th scope="col">P_ID</th>
+          <th scope="col">Type</th>
+          <th scope="col">Time</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <th scope="row">{{appointment.appointmentId}}</th>
+          <td>{{appointment.employeeId}}</td>
+          <td>{{appointment.patientId}}</td>
+          <td>{{appointment.appointmentType}}</td>
+          <td>{{appointment.appointmentTime}}</td>
+          <td>{{appointment.appointmentDate}}</td>
+          <td><a (click)="changeView(2); edit(appointment)" href="#">edit</a></td>
+          <td><a (click)="deleteEntry(appointment.appointmentId);" href="#">delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</ng-template>
+
